@@ -1,7 +1,7 @@
 "use strict";
 const ids = ["bridgeKey","outputDeviceId","includeMic","micDeviceId","monitorAi","model","voice","mode","instructions","consentConfirmed"];
 const $ = id => document.getElementById(id);
-const defaults = { bridgeKey:"",outputDeviceId:"",includeMic:true,micDeviceId:"",monitorAi:false,model:"gpt-realtime-2.1-mini",voice:"marin",mode:"manual",instructions:"",consentConfirmed:false };
+const defaults = { bridgeKey:"",outputDeviceId:"",includeMic:true,micDeviceId:"",monitorAi:true,model:"gpt-realtime-2.1-mini",voice:"marin",mode:"manual",instructions:"",consentConfirmed:false };
 let oldState = null;
 function toast(msg, bad=false) { $("toast").textContent=msg; $("toast").style.color=bad?"#b83431":"#087c59"; }
 function readSettings() { const result={}; for(const id of ids) result[id]=$(id).type==="checkbox"?$(id).checked:$(id).value; return result; }
