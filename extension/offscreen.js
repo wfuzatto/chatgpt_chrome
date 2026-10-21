@@ -36,8 +36,15 @@ async function startSession(streamId, settings) {
     fromTab.connect(toModel);
     if (settings.includeMic) {
       s.micStream = await navigator.mediaDevices.getUserMedia({
-        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+        audio: {
+          deviceId: settings.micDeviceId ? { exact: settings.micDeviceId } : undefined,
+          echoCancellation: true, noiseSuppression: true, autoGainControl: true
+        }
       });
+      const microphoneLabel = s.micStream.getAudioTracks()[0]?.label || "";
+      if (/CABLE Output|VB-CABLE/i.test(microphoneLabel)) {
+        throw new Error("Microfone físico incorreto: CABLE Output criaria um loop de áudio. Selecione seu microfone real.");
+      }
       const mic = ctx.createMediaStreamSource(s.micStream);
       mic.connect(toModel);
       mic.connect(toMeeting);
