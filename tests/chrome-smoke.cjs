@@ -6,10 +6,11 @@ const puppeteer=require("puppeteer-core");
  const extension=path.resolve(__dirname,"../extension");
  const browser=await puppeteer.launch({
    executablePath:process.env.CHROME_PATH||"/usr/bin/google-chrome",
-   headless:true,
+   headless:false,
    args:["--no-sandbox","--disable-dev-shm-usage","--disable-extensions-except="+extension,"--load-extension="+extension]
  });
  try{
+   console.log("Chrome targets:",browser.targets().map(t=>({type:t.type(),url:t.url()})));
    const target=await browser.waitForTarget(t=>t.type()==="service_worker"&&t.url().startsWith("chrome-extension://"),{timeout:20000});
    const id=new URL(target.url()).hostname;
    assert.match(id,/^[a-p]{32}$/);
