@@ -7,7 +7,9 @@ const puppeteer=require("puppeteer-core");
  const browser=await puppeteer.launch({
    executablePath:process.env.CHROME_PATH||"/usr/bin/google-chrome",
    headless:false,
-   args:["--no-sandbox","--disable-dev-shm-usage","--disable-extensions-except="+extension,"--load-extension="+extension]
+   pipe:true,
+   enableExtensions:[extension],
+   args:["--no-sandbox","--disable-dev-shm-usage"]
  });
  try{
    console.log("Chrome targets:",browser.targets().map(t=>({type:t.type(),url:t.url()})));
