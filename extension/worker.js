@@ -1,7 +1,7 @@
 "use strict";
 const DEFAULTS = {
   bridgeKey: "", model: "gpt-realtime-2.1-mini", voice: "marin", mode: "manual",
-  outputDeviceId: "", includeMic: true, micDeviceId: "", monitorAi: false, consentConfirmed: false,
+  outputDeviceId: "", includeMic: true, micDeviceId: "", monitorAi: true, consentConfirmed: false,
   instructions: ""
 };
 const MEETING_HOSTS = new Set([
