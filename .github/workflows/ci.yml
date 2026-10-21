@@ -23,7 +23,7 @@ jobs:
       - name: Smoke test em Chrome real (painel e configuracoes)
         run: |
           npm install --no-save --no-package-lock puppeteer-core@24.26.1
-          node tests/chrome-smoke.cjs
+          xvfb-run -a node tests/chrome-smoke.cjs
       - name: Preparar instalador da extensao (descompactada)
         run: |
           mkdir -p dist
