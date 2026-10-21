@@ -1,0 +1,31 @@
+name: Testar e empacotar para Chrome
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Testar broker
+        run: cd server && npm test && npm run check
+      - name: Verificar scripts Chrome
+        run: |
+          node --check extension/worker.js
+          node --check extension/offscreen.js
+          node --check extension/options.js
+          node -e "const m=require('./extension/manifest.json'); if (m.manifest_version!==3 || !m.permissions.includes('tabCapture')) process.exit(1)"
+      - name: Preparar instalador da extensao (descompactada)
+        run: |
+          mkdir -p dist
+          cd extension
+          zip -r ../dist/ChatGPT-Voice-Bridge-Chrome.zip manifest.json worker.js offscreen.html offscreen.js options.html options.js styles.css
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chatgpt-voice-bridge-chrome
+          path: dist/ChatGPT-Voice-Bridge-Chrome.zip

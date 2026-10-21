@@ -1,0 +1,12 @@
+{
+  "name": "chatgpt-voice-bridge-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-only token broker for OpenAI Realtime WebRTC",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test test/*.test.js",
+    "check": "node --check index.js && node --check lib.js"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "ChatGPT Voice Bridge - Meet e Teams",
+  "description": "Ponte de voz por OpenAI Realtime para chamadas Meet e Teams no navegador.",
+  "version": "0.1.0",
+  "minimum_chrome_version": "116",
+  "permissions": ["tabCapture", "offscreen", "storage", "activeTab"],
+  "host_permissions": ["http://127.0.0.1:8787/*", "https://api.openai.com/*"],
+  "background": { "service_worker": "worker.js" },
+  "action": { "default_title": "Iniciar / parar ChatGPT Voice Bridge" },
+  "options_page": "options.html"
+}
